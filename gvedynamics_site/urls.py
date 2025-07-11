@@ -1,5 +1,5 @@
 """
-URL configuration for dvedynamics_site project.
+URL configuration for gvedynamics_site project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
