@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'gvedynamics_site.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': config('DB_NAME'),
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
@@ -135,3 +135,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Принудительно использовать HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Указываем, что соединение безопасное, если заголовок X-Forwarded-Proto = https
+# (нужно, если Django работает за Nginx/Apache)
+# SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Куки только по HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+# Дополнительные меры безопасности (опционально, но рекомендуется)
+# SECURE_HSTS_SECONDS = 31536000  # 1 год
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+# SECURE_HSTS_PRELOAD = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_BROWSER_XSS_FILTER = True
+# X_FRAME_OPTIONS = 'DENY'
