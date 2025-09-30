@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+ {% load static %}
 <html lang="ru">
 <head>
     <meta charset="UTF-8" />
@@ -53,6 +54,11 @@
             font-size: 1.8rem;
         }
 
+        .header-logo img {
+            height: 100px;            /* Лучше задавать высоту, а не ширину 10px — иначе слишком мелко */
+            width: auto;             /* Сохраняем пропорции */
+        }
+
         nav ul {
             list-style: none;
             display: flex;
@@ -65,11 +71,34 @@
             font-weight: 500;
         }
 
+        /* Стили для бургер-меню */
+        .burger-menu {
+            display: none; /* Скрываем на десктопе */
+            flex-direction: column;
+            justify-content: space-around;
+            width: 30px;
+            height: 25px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .burger-menu span {
+            display: block;
+            width: 100%;
+            height: 3px;
+            background: aliceblue;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
         .hero {
-            background: url('https://images.unsplash.com/photo-1552674603-0e1fd9b2398e?auto=format&fit=crop&w=1600&q=80 ') center/cover no-repeat;
+<!--            background: url('https://images.unsplash.com/photo-1552674603-0e1fd9b2398e?auto=format&fit=crop&w=1600&q=80 ') center/cover no-repeat;-->
             color: white;
             padding: 100px 20px;
             text-align: center;
+            background:black;
         }
 
         .hero h2 {
@@ -114,6 +143,11 @@
             min-width: 280px;
         }
 
+        .ref {
+            text-decoration: none;
+            color: var(--accent-color);
+        }
+
         .card h3 {
             margin-bottom: 15px;
             color: var(--accent-color);
@@ -141,19 +175,58 @@
             font-size: 0.9rem;
         }
 
+        /* Кнопка "Наверх" */
+        .back-to-top {
+            position: fixed;
+            bottom: 100px; /* Расстояние от нижнего края экрана — выше футера */
+            right: 30px;  /* Отступ справа */
+            width: 50px;
+            height: 50px;
+            border: none;
+            border-radius: 50%;
+            background-color: rgb(228, 93, 15);
+            color: rgb(251, 249, 249);
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top:hover {
+            background-color: rgb(203, 59, 20);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+        }
+
+         .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+
         @media (max-width: 768px) {
             nav ul {
                 flex-direction: column;
                 display: none;
                 background-color: var(--primary-color);
                 position: absolute;
-                top: 70px;
+                top: 100px;
                 right: 0;
                 width: 200px;
+                text-align: center;
             }
 
             nav ul.active {
                 display: flex;
+            }
+
+            .burger-menu {
+                display: flex;
+                flex-shrink: 0;
             }
 
             .menu-toggle {
@@ -172,17 +245,28 @@
 <body>
 
 <header>
+
     <div class="container">
-        <nav>
-            <h1>GVE Dynamics</h1>
-            <div class="menu-toggle" onclick="toggleMenu()">☰</div>
-            <ul id="nav-links">
-                <li><a href="#about">О компании</a></li>
-                <li><a href="#services">Услуги</a></li>
-                <li><a href="#values">Ценности</a></li>
-                <li><a href="#contact">Контакты</a></li>
-            </ul>
-        </nav>
+
+<nav>
+    <div class="header-logo">
+        <img src="{% get_media_prefix %}images/GVE_Dynamics_Main_Logo.png" alt="logo" class="logo">
+    </div>
+<!--    <h1>GVE Dynamics</h1>-->
+
+    <button class="burger-menu" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <ul id="nav-links">
+        <li><a href="#about">О компании</a></li>
+        <li><a href="#services">Услуги</a></li>
+        <li><a href="#values">Ценности</a></li>
+        <li><a href="#contact">Контакты</a></li>
+    </ul>
+</nav>
     </div>
 </header>
 
@@ -207,17 +291,41 @@
     <div class="container">
         <h2>Что мы делаем</h2>
         <div class="features">
+<!--            <div class="card">-->
+<!--                <h3>Анализ действий пилотов</h3>-->
+<!--                <p>Системы, которые отслеживают и оценивают действия экипажей в режиме реального времени.</p>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <h3>Прогнозирование событий</h3>-->
+<!--                <p>Использование ИИ для предсказания возможных отклонений и аномалий в поведении пилотов.</p>-->
+<!--            </div>-->
+<!--            <div class="card">-->
+<!--                <h3>Визуализация данных</h3>-->
+<!--                <p>Платформы и дашборды, позволяющие легко интерпретировать сложные данные.</p>-->
+<!--            </div>-->
             <div class="card">
-                <h3>Анализ действий пилотов</h3>
-                <p>Системы, которые отслеживают и оценивают действия экипажей в режиме реального времени.</p>
+                <h3>Программа LOSA</h3>
+                <p>Аудитор заполняет таблицы отчета в приложении и
+                    при наличии интернета данные сохраняются в базу данных на сервере,
+                    который выводит автоматизированный анализ данных для Ваших должностных лиц. <a href="{% url 'losa' %}" class="ref"><b>подробнее...</b></a> </p>
             </div>
             <div class="card">
-                <h3>Прогнозирование событий</h3>
-                <p>Использование ИИ для предсказания возможных отклонений и аномалий в поведении пилотов.</p>
+                <h3>Тренажерная подготовка</h3>
+                <p>Инструктор тренажера оценивает пилотов при помощи выпадающих списков,
+                    что экономит время на записи в задание на тренировку. После завершения сессии формируется бланк
+                тренировки для печати, готовый для подписи, с оценками и замечаниями. Данные отправляются на сервер для дальнейшего анализа
+                и статистики. Формируются графики компетенций пилота.  <a href="#" class="ref"><b>подробнее...</b></a></p>
             </div>
             <div class="card">
-                <h3>Визуализация данных</h3>
-                <p>Платформы и дашборды, позволяющие легко интерпретировать сложные данные.</p>
+                <h3>Line Check - Летная проверка в воздухе</h3>
+                <p>Пилот - инструктор оценивает элементы в офлайн приложении. Формирует задание на тренировку для подписи.
+                    При наличии интернета приложение отправляет данные на сервер. Данные добавляются в графики компетенций пилота.  <a href="#" class="ref"><b>подробнее...</b></a></p>
+            </div>
+            <div class="card">
+                <h3>Анализ по средствам объективного контроля</h3>
+                <p>По Вашему выбору, тех параметров,
+                    которые требуется мониторить, делаем выборку данных из файлов расшифровки полетов.
+                 Данные добавляются в графики компетенций пилота.  <a href="#" class="ref"><b>подробнее...</b></a></p>
             </div>
         </div>
     </div>
@@ -247,7 +355,7 @@
     <div class="container">
         <h2>Свяжитесь с нами</h2>
         <p>Если вы заинтересованы в сотрудничестве или хотите узнать больше — напишите нам.</p>
-        <a href="mailto:info@gvedynamics.ru" class="btn">Написать нам</a>
+        <a href="mailto:gvedynamics@gmail.com?subject=Информация с сайта GVE Dynamics" class="btn">Написать нам</a>
     </div>
 </section>
 
@@ -255,11 +363,55 @@
     <p>&copy; 2025 GVE Dynamics. Все права защищены.</p>
 </footer>
 
+<button id="backToTop" class="back-to-top" aria-label="Вернуться наверх">
+    ↑
+</button>
+
 <script>
-    function toggleMenu() {
-        const links = document.getElementById('nav-links');
-        links.classList.toggle('active');
+
+document.addEventListener('DOMContentLoaded', function () {
+    const burger = document.querySelector('.burger-menu');
+    const navLinks = document.getElementById('nav-links');
+
+    if (!burger || !navLinks) {
+        console.error('Бургер или меню навигации не найдены!');
+        return;
     }
+
+    burger.addEventListener('click', function () {
+        navLinks.classList.toggle('active');
+    });
+});
+
+    // Кнопка ссылка "в начало страницы"
+
+document.addEventListener('DOMContentLoaded', function () {
+    const backToTopButton = document.getElementById('backToTop');
+
+    if (!backToTopButton) {
+        console.error('Кнопка #backToTop не найдена!');
+        return;
+    }
+
+    function toggleBackToTopButton() {
+        if (window.pageYOffset > 100) {
+            backToTopButton.classList.add('show');
+        } else {
+            backToTopButton.classList.remove('show');
+        }
+    }
+
+    backToTopButton.addEventListener('click', function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+
+    window.addEventListener('scroll', toggleBackToTopButton);
+    toggleBackToTopButton(); // ← ЭТО СПАСЁТ КНОПКУ!
+});
+
 </script>
 
 </body>
